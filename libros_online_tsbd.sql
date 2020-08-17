@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-08-2020 a las 04:17:16
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.7
+-- Tiempo de generación: 17-08-2020 a las 05:25:02
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `libros_online_tsbd`
 --
-CREATE DATABASE IF NOT EXISTS `libros_online_tsbd` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-USE `libros_online_tsbd`;
 
 -- --------------------------------------------------------
 
@@ -34,20 +32,7 @@ CREATE TABLE `carrito` (
   `id_carrito` int(11) NOT NULL,
   `fecha` date NOT NULL,
   `costo_total` int(4) NOT NULL,
-  `cantidad_total` int(3) NOT NULL,
-  `id_cliente` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cliente`
---
-
-CREATE TABLE `cliente` (
-  `id_cliente` int(11) NOT NULL,
-  `usuario` varchar(10) COLLATE utf8_bin NOT NULL,
-  `contrasenia` varchar(10) COLLATE utf8_bin NOT NULL
+  `cantidad_total` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -126,12 +111,6 @@ ALTER TABLE `carrito`
   ADD PRIMARY KEY (`id_carrito`);
 
 --
--- Indices de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`id_cliente`);
-
---
 -- Indices de la tabla `compra`
 --
 ALTER TABLE `compra`
@@ -164,12 +143,6 @@ ALTER TABLE `libros`
 --
 ALTER TABLE `carrito`
   MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `cliente`
---
-ALTER TABLE `cliente`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
