@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-08-2020 a las 05:25:02
--- Versión del servidor: 10.4.11-MariaDB
--- Versión de PHP: 7.4.2
+-- Tiempo de generación: 18-08-2020 a las 04:19:10
+-- Versión del servidor: 10.3.16-MariaDB
+-- Versión de PHP: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `libros_online_tsbd`
 --
+CREATE DATABASE IF NOT EXISTS `libros_online_tsbd` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `libros_online_tsbd`;
 
 -- --------------------------------------------------------
 
@@ -48,8 +50,7 @@ CREATE TABLE `compra` (
   `costo_total` int(4) NOT NULL,
   `cantidad total` int(3) NOT NULL,
   `descripcion` text COLLATE utf8_bin NOT NULL,
-  `id_carrito` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL
+  `id_carrito` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -78,8 +79,7 @@ CREATE TABLE `facturas` (
   `razon_social` varchar(30) COLLATE utf8_bin NOT NULL,
   `fecha_factura` date NOT NULL,
   `domicilio` text COLLATE utf8_bin NOT NULL,
-  `id_compra` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL
+  `id_compra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -114,19 +114,23 @@ ALTER TABLE `carrito`
 -- Indices de la tabla `compra`
 --
 ALTER TABLE `compra`
-  ADD PRIMARY KEY (`id_compra`);
+  ADD PRIMARY KEY (`id_compra`),
+  ADD KEY `id_carrito_c` (`id_carrito`);
 
 --
 -- Indices de la tabla `descripcion_carrito`
 --
 ALTER TABLE `descripcion_carrito`
-  ADD PRIMARY KEY (`id_des_c`);
+  ADD PRIMARY KEY (`id_des_c`),
+  ADD KEY `id_libro` (`id_libro`),
+  ADD KEY `id_carrito` (`id_carrito`);
 
 --
 -- Indices de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  ADD PRIMARY KEY (`id_facturas`);
+  ADD PRIMARY KEY (`id_facturas`),
+  ADD KEY `id_compra_f` (`id_compra`);
 
 --
 -- Indices de la tabla `libros`
@@ -167,6 +171,29 @@ ALTER TABLE `facturas`
 --
 ALTER TABLE `libros`
   MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `compra`
+--
+ALTER TABLE `compra`
+  ADD CONSTRAINT `id_carrito_c` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `descripcion_carrito`
+--
+ALTER TABLE `descripcion_carrito`
+  ADD CONSTRAINT `id_carrito` FOREIGN KEY (`id_carrito`) REFERENCES `carrito` (`id_carrito`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_libro` FOREIGN KEY (`id_libro`) REFERENCES `libros` (`id_libro`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `id_compra_f` FOREIGN KEY (`id_compra`) REFERENCES `compra` (`id_compra`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
