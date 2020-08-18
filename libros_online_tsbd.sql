@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-08-2020 a las 06:50:46
--- Versión del servidor: 10.3.16-MariaDB
--- Versión de PHP: 7.3.7
+-- Tiempo de generación: 18-08-2020 a las 21:54:52
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -36,6 +36,15 @@ CREATE TABLE `carrito` (
   `cantidad_total` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id_carrito`, `fecha`, `cantidad_total`) VALUES
+(6, '2020-08-13', 3),
+(7, '2020-08-10', 3),
+(9, '2020-07-30', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -52,6 +61,15 @@ CREATE TABLE `compra` (
   `id_carrito` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+--
+-- Volcado de datos para la tabla `compra`
+--
+
+INSERT INTO `compra` (`id_compra`, `nom_compra`, `fecha_compra`, `costo_total`, `descripcion`, `metodo_pago`, `id_carrito`) VALUES
+(1, 'Juan Gonzalez Nava', '2020-08-13', 527, '-El enigma de la habitación 622\r\n-El Arte de la Guerra\r\n-Sol de Medianoche', 'credito/debito', 6),
+(2, 'Victor García Martínez ', '2020-08-10', 677, '-Sol de Medianoche\r\n-El enigma de la habitación 622', 'PayPal', 7),
+(3, 'Chaparro Chuacheneger', '2020-07-30', 916, '-Sol de Medianoche\r\n-El enigma de la habitación 622', 'credito/debito', 9);
+
 -- --------------------------------------------------------
 
 --
@@ -64,6 +82,19 @@ CREATE TABLE `descripcion_carrito` (
   `id_carrito` int(11) NOT NULL,
   `id_libro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `descripcion_carrito`
+--
+
+INSERT INTO `descripcion_carrito` (`id_des_c`, `cantidad`, `id_carrito`, `id_libro`) VALUES
+(3, 1, 6, 4),
+(4, 1, 6, 6),
+(5, 1, 6, 7),
+(6, 2, 7, 7),
+(7, 1, 7, 4),
+(8, 2, 9, 7),
+(9, 2, 9, 4);
 
 -- --------------------------------------------------------
 
@@ -88,6 +119,15 @@ CREATE TABLE `facturas` (
   `pais` varchar(20) COLLATE utf8_bin NOT NULL,
   `id_compra` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`id_facturas`, `nombre`, `apellido`, `email`, `uso_cfdi`, `razon_social`, `rfc`, `fecha_factura`, `direccion`, `cp`, `colonia`, `ciudad`, `estado`, `pais`, `id_compra`) VALUES
+(1, 'Juan', 'Gonzalez Nava', 'prueba1@test.com', 'G03 - Gastos general', 'TIGMED SRL', 'GONJ123456', '2020-08-13', 'Avenida Bordo de Xochiaca, Av. Ciudad Jdn. 3', 57205, 'Bicentenario', 'Nezahualcoyotl', 'México', 'México', 1),
+(2, 'Victor', 'García Martínez', 'prueba2@test.com', 'G03 - Gastos general', 'GG SRL', 'GAMV567891', '2020-08-10', 'Av Bordo de Xochiaca, Aeropuerto ', 15620, 'Aeropuerto', 'Venustiano Carranza', 'Ciudad de México', 'México', 2),
+(3, 'Chaparro', 'Chuacheneger', 'prueba3@prueba.com', 'G03 - Gastos generales', 'TDR S.A. C.V.', 'CUCA246810', '2020-07-30', 'Av. México Coyoacán 106, Sta Cruz Atoyac', 3310, 'Sta Cruz Atoyac', 'Benito Juárez', 'Ciudad de México', 'México', 3);
 
 -- --------------------------------------------------------
 
@@ -163,25 +203,25 @@ ALTER TABLE `libros`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `compra`
 --
 ALTER TABLE `compra`
-  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_compra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `descripcion_carrito`
 --
 ALTER TABLE `descripcion_carrito`
-  MODIFY `id_des_c` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_des_c` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id_facturas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_facturas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `libros`
